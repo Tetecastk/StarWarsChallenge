@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import {Switch, Route} from 'react-router-dom';
+import Planets from './components/Planets';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { visible: false };
+  }
+
+  show() {
+    this.setState({ visible: true });
+  }
+
+  hide() {
+    this.setState({ visible: false });
+  }
+
+
+  render() {
+    return (
+      <div>
+        <div className="container">
+            <Switch>
+                <Route path="/" component={Planets} />
+            </Switch>
+        </div>
+        <div>
+          <button onClick={this.show.bind(this)}>show</button>
+
+          <Rodal visible={this.state.visible} onClose={this.hide.bind(this)}>
+            <div>Content</div>
+          </Rodal>
+        </div>
+        <div id="background"></div>
+        <div id="midground"></div>
+      </div>
+    );
+  }
 }
 
 export default App;
